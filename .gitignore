@@ -279,3 +279,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.UT.lst.swp
+*.swp
+UT.lst
+*.lst
+qu.label
+*.vcxproj
+SearchEngineWithPython.vcxproj.filters
