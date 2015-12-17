@@ -286,3 +286,5 @@ UT.lst
 qu.label
 *.vcxproj
 SearchEngineWithPython.vcxproj.filters
+*.pyc
+split.pyc

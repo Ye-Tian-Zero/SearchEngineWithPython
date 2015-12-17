@@ -38,15 +38,15 @@ public:
 
 	}
 
-	const vector<pair<size_t, unsigned int>>& getDocVec(size_t wordID){
+	vector<pair<size_t, unsigned int>>& getDocVec(size_t wordID){
 		return backward_Index.find(wordID) == backward_Index.end()? _empty_flag : backward_Index[wordID];
 	}
 
-//private:
+private:
 	fstream file_bi;
-	static const vector<pair<size_t, unsigned int>> _empty_flag;
+	static vector<pair<size_t, unsigned int>> _empty_flag;
 	unordered_map<size_t, vector<pair<size_t, unsigned int>>> backward_Index;
 };
 
-const vector<pair<size_t, unsigned int>> backwardIndex::_empty_flag;
+vector<pair<size_t, unsigned int>> backwardIndex::_empty_flag;
 #endif

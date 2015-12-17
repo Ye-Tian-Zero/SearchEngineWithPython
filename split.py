@@ -1,8 +1,9 @@
-import jieba
+﻿import jieba
 
 def split(toCut):
     toCut = unicode(toCut.decode("gbk"))
     retList = list(jieba.cut_for_search(toCut))
+    retList = [i for i in retList if i != ' ']
 
     for i in range(0, len(retList)):
         retList[i] = retList[i].encode('GBK')

@@ -33,7 +33,8 @@ double getNDcg(const string& label, const vector<pair<string, string>> res, EZla
 	vector<double> best_order = el.getBestOrder(label, res.size());
 	auto idcg = getDcg(best_order);
 
-	return dcg / idcg;
+
+	return idcg == 0? -1:dcg / idcg;
 }
 
 
@@ -88,7 +89,7 @@ int main()
 		string query;
 		cout << "EZ search: ";
 		getline(cin, query);
-		es.search(query, resList, 5);
+		es.search(query, resList, 10);
 		
 		for (const auto& res : resList)
 		{

@@ -33,7 +33,6 @@ public:
 
 			labls[svec[0]][svec[1]] = std::stoi(svec[2]);
 		}
-		cout << cnt << endl;
 	}
 		
 	inline
@@ -57,9 +56,11 @@ public:
 			result.push_back(item.second);
 		}
 
-		partial_sort(result.begin(), result.begin() + sz, result.end(), std::greater<double>());
+		auto flag_iter = sz > result.size() ? result.end() : result.begin() + sz;
 
-		return vector<double>(result.begin(), result.begin() + sz);
+		partial_sort(result.begin(), flag_iter, result.end(), std::greater<double>());
+
+		return vector<double>(result.begin(), flag_iter);
 	}
 	unordered_map<string, map<string, int>> labls;
 };
