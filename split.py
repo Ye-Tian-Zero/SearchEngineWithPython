@@ -1,13 +1,18 @@
-﻿import jieba
+import jieba
+import jieba.analyse
 
 def split(toCut):
+    jieba.initialize()
+    
     toCut = unicode(toCut.decode("gbk"))
-    retList = list(jieba.cut_for_search(toCut))
-    retList = [i for i in retList if i != ' ']
-
+    retList = list(jieba.analyse.extract_tags(toCut, topK = 255, withWeight=1))
+    retList = [i for i in retList if i[0] != ' ']
+    
     for i in range(0, len(retList)):
-        retList[i] = retList[i].encode('GBK')
+        retList[i] = [retList[i][0].encode('GBK'), retList[i][1]]
+        
     return retList
+
 
 def utf2gbk(s):
     s = s.decode('utf-8')
@@ -28,5 +33,7 @@ def wordDctChangeMode(filename):
     output_obj.close()
 
 if __name__ == '__main__':
-    wordDctChangeMode('lexicon.lst')
+    '''wordDctChangeMode('lexicon.lst')
+'''
+    pass
 

@@ -49,7 +49,7 @@ public:
 		pArgs = PyTuple_New(1);
 	}
 
-	void cut(const string& cstr, vector<string>& svec)
+	void cut(const string& cstr, vector<pair<string, double>>& svec)
 	{
 		svec.clear();
 
@@ -62,8 +62,11 @@ public:
 		for (int i(0); i != sz; ++i)
 		{
 			pyobj *ret = PyList_GetItem(pValue, i);
-			string s = PyString_AsString(ret);
-			svec.push_back(s);
+			pyobj *word = PyList_GetItem(ret, 0);
+			pyobj *weight= PyList_GetItem(ret, 1);
+			string s = PyString_AsString(word);
+			double w = PyFloat_AsDouble(weight);
+			svec.push_back(pair<string, double>(s, w));
 		}
 
 	}
