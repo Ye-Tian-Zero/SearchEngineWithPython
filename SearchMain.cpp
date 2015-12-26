@@ -4,6 +4,7 @@
 #include<vector>
 #include<numeric>
 #include<cmath>
+#include<memory>
 #include"EZ_search.h"
 #include"EZ_label.h"
 
@@ -38,18 +39,11 @@ double getNDcg(const string& label, const vector<pair<string, string>> res, EZla
 	return idcg == 0? -1:dcg / idcg;
 }
 
-
-int main()
-{
-	cout << "loading necessary datas" << endl;
-	EZsearch es;
-	cout << "done" << endl;
+void runDcgTest(std::shared_ptr<EZsearch> searchP){
 	cout << "loading test labels" << endl;
 	EZlabel el(".\\qu.label");
 	cout << el.getSz() << endl;
 	cout << "done" << endl;
-	cout << "-------------------------------" << endl << endl;
-	
 	fstream fstrm("ndcg results", std::ios::out);
 	vector<pair<string, string>> resList3;
 	vector<pair<string, string>> resList5;
@@ -67,7 +61,7 @@ int main()
 		fstrm << query << ':' << endl;
 		//cout << query << endl;
 
-		es.search(query, resList10, 10);
+		searchP->search(query, resList10, 10);
 		if (resList10.size() >= 3)
 		{
 			resList3.insert(resList3.begin(), resList10.begin(), resList10.begin() + 3);
@@ -102,6 +96,17 @@ int main()
 	fstrm << "dcg3 average: " << std::accumulate(dcg3_vec.begin(), dcg3_vec.end(), 0.0) / dcg3_vec.size() << endl;
 	fstrm << "dcg5 average: " << std::accumulate(dcg5_vec.begin(), dcg5_vec.end(), 0.0) / dcg5_vec.size() << endl;
 	fstrm << "dcg10 average: " << std::accumulate(dcg10_vec.begin(), dcg10_vec.end(), 0.0) / dcg10_vec.size() << endl;
+}
+
+int main()
+{
+	cout << "loading necessary datas" << endl;
+	EZsearch_IDF es;
+	cout << "done" << endl;
+	cout << "-------------------------------" << endl << endl;
+	runDcgTest(std::shared_ptr<EZsearch>(&es));
+	
+	
 	//vector<pair<string, string>> resList;
 	//while (true)
 	//{

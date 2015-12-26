@@ -33,7 +33,5 @@ def wordDctChangeMode(filename):
     output_obj.close()
 
 if __name__ == '__main__':
-    '''wordDctChangeMode('lexicon.lst')
-'''
-    pass
+    wordDctChangeMode('lexicon.lst')
 

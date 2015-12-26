@@ -17,6 +17,20 @@ private:
 	string err_info;
 };
 
+class term{
+public:
+	typedef string	word_s;
+	typedef double	weight_d;
+
+public:
+	term(word_s wd = "", weight_d wt = 0) :term_(wd, wt){}
+	inline const string& getWord() const { return term_.first; }
+	inline double getWeight() const { return term_.second; }
+
+private:
+	pair<word_s, weight_d> term_;
+};
+
 class jieba{
 public:
 	jieba(){
@@ -49,9 +63,9 @@ public:
 		pArgs = PyTuple_New(1);
 	}
 
-	void cut(const string& cstr, vector<pair<string, double>>& svec)
+	void cut(const string& cstr, vector<term>& tvec)
 	{
-		svec.clear();
+		tvec.clear();
 
 		PyTuple_SetItem(pArgs, 0/*Index?*/, Py_BuildValue("s", cstr.c_str()));
 		pyobj* pValue = NULL;
@@ -66,7 +80,7 @@ public:
 			pyobj *weight= PyList_GetItem(ret, 1);
 			string s = PyString_AsString(word);
 			double w = PyFloat_AsDouble(weight);
-			svec.push_back(pair<string, double>(s, w));
+			tvec.emplace_back(s, w);
 		}
 
 	}
